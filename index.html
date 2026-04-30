@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SigFoundry | macOS Apps</title>
+    <meta
+      name="description"
+      content="A showcase page for apps by SigFoundry."
+    />
+    <meta property="og:title" content="SigFoundry | Apps" />
+    <meta
+      property="og:description"
+      content="A showcase page for apps by SigFoundry."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./assets/sigfoundry-logo.png" />
+    <link rel="icon" type="image/png" href="./assets/sigfoundry-logo.png" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --black: #000000;
+        --near-black: #0f0f10;
+        --panel: rgba(255, 255, 255, 0.06);
+        --panel-strong: rgba(255, 255, 255, 0.09);
+        --line: rgba(255, 255, 255, 0.12);
+        --line-strong: rgba(255, 255, 255, 0.24);
+        --white: #ffffff;
+        --soft-white: rgba(255, 255, 255, 0.82);
+        --muted: rgba(255, 255, 255, 0.58);
+        --blue: #2997ff;
+        --glow: rgba(41, 151, 255, 0.22);
+        --max-width: 1200px;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 32%),
+          radial-gradient(circle at 80% 20%, rgba(41, 151, 255, 0.15), transparent 26%),
+          linear-gradient(180deg, #050505 0%, #000000 38%, #090909 100%);
+        color: var(--white);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .shell {
+        width: min(calc(100% - 48px), var(--max-width));
+        margin: 0 auto;
+      }
+
+      .site-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.76);
+        backdrop-filter: saturate(180%) blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-inner {
+        width: min(calc(100% - 48px), var(--max-width));
+        min-height: 52px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        line-height: 1.33;
+        letter-spacing: -0.12px;
+      }
+
+      .brand-mark {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-links {
+        display: inline-flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 12px;
+        line-height: 1.33;
+        letter-spacing: -0.12px;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .hero {
+        min-height: calc(100vh - 52px);
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 500px);
+        align-items: center;
+        gap: 64px;
+        padding: 92px 0 80px;
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: var(--blue);
+        font-size: 21px;
+        line-height: 1.19;
+        letter-spacing: 0.231px;
+        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      h1 {
+        font-size: clamp(48px, 8vw, 88px);
+        font-weight: 600;
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+        max-width: 8ch;
+      }
+
+      h2 {
+        font-size: clamp(32px, 4.5vw, 44px);
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+      }
+
+      h3 {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+      }
+
+      .intro,
+      .section-copy p,
+      .app-card p,
+      .footer-inner {
+        font-size: 17px;
+        line-height: 1.47;
+        letter-spacing: -0.374px;
+      }
+
+      .intro {
+        margin: 22px 0 0;
+        max-width: 34em;
+        color: var(--soft-white);
+      }
+
+      .hero-actions {
+        margin-top: 34px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 8px 18px;
+        border-radius: 980px;
+        font-size: 17px;
+        line-height: 1;
+        letter-spacing: -0.374px;
+        transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-1px);
+      }
+
+      .button-primary {
+        background: var(--blue);
+        color: var(--white);
+      }
+
+      .button-secondary {
+        border: 1px solid rgba(41, 151, 255, 0.76);
+        color: var(--blue);
+      }
+
+      .hero-art {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .logo-frame {
+        position: relative;
+        width: min(100%, 480px);
+        aspect-ratio: 1;
+        padding: 26px;
+        border-radius: 36px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+          rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .logo-frame::before {
+        content: "";
+        position: absolute;
+        inset: -18%;
+        background: radial-gradient(circle, var(--glow), transparent 52%);
+        filter: blur(18px);
+      }
+
+      .logo-frame img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .apps-section {
+        padding: 18px 0 108px;
+      }
+
+      .section-copy {
+        max-width: 720px;
+        margin-bottom: 34px;
+      }
+
+      .section-copy p {
+        margin: 18px 0 0;
+        color: var(--soft-white);
+      }
+
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .app-card {
+        position: relative;
+        min-height: 320px;
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 30px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04)),
+          var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        overflow: hidden;
+      }
+
+      .app-card::before {
+        content: "";
+        position: absolute;
+        inset: auto -20% -36% 20%;
+        height: 220px;
+        background: radial-gradient(circle, rgba(41, 151, 255, 0.2), transparent 60%);
+        opacity: 0;
+        transition: opacity 220ms ease;
+      }
+
+      .app-card:hover,
+      .app-card:focus-visible {
+        transform: translateY(-4px);
+        border-color: var(--line-strong);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52);
+      }
+
+      .app-card:hover::before,
+      .app-card:focus-visible::before {
+        opacity: 1;
+      }
+
+      .card-head,
+      .card-foot {
+        position: relative;
+        z-index: 1;
+      }
+
+      .app-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+      }
+
+      .app-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: -0.12px;
+      }
+
+      .app-card p {
+        margin: 16px 0 0;
+        color: var(--soft-white);
+        max-width: 26em;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--blue);
+        font-size: 17px;
+        line-height: 1.47;
+        letter-spacing: -0.374px;
+      }
+
+      .card-link::after {
+        content: "↗";
+        font-size: 18px;
+      }
+
+      .site-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .footer-inner {
+        width: min(calc(100% - 48px), var(--max-width));
+        min-height: 76px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 42px;
+          padding-top: 74px;
+        }
+
+        .hero-copy {
+          max-width: 620px;
+        }
+
+        .logo-frame {
+          width: min(100%, 420px);
+        }
+
+        .app-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .shell,
+        .nav-inner,
+        .footer-inner {
+          width: min(calc(100% - 32px), var(--max-width));
+        }
+
+        .nav-inner,
+        .footer-inner {
+          gap: 12px;
+        }
+
+        .nav-links {
+          gap: 14px;
+        }
+
+        .eyebrow {
+          font-size: 18px;
+        }
+
+        .app-card {
+          min-height: 280px;
+          padding: 22px;
+          border-radius: 24px;
+        }
+
+        .footer-inner {
+          min-height: auto;
+          padding: 22px 0;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="SigFoundry">
+          <span class="brand-mark">
+            <img src="./assets/sigfoundry-logo.png" alt="SigFoundry logo" />
+          </span>
+          <span>SigFoundry</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#apps">Apps</a>
+          <a href="https://github.com/SigFoundry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Independent Utilities</p>
+          <h1>SigFoundry Apps</h1>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#apps">Explore Apps</a>
+            <a class="button button-secondary" href="https://github.com/SigFoundry">GitHub</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="logo-frame">
+            <img src="./assets/sigfoundry-logo.png" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section class="apps-section shell" id="apps">
+        <div class="section-copy">
+          <h2>Applications</h2>
+        </div>
+
+        <div class="app-grid">
+          <a class="app-card" href="https://sigfoundry.github.io/Arca/" aria-label="Open Arca landing page">
+            <div class="card-head">
+              <img
+                class="app-icon"
+                src="https://sigfoundry.github.io/Arca/assets/app-icon.png"
+                alt="Arca icon"
+              />
+              <div class="app-meta">
+                <span>macOS</span>
+                <span>•</span>
+                <span>Secure Notes</span>
+              </div>
+              <h3>Arca</h3>
+              <p>
+                An encrypted notes utility for macOS, shaped around the calm feel of the old Secure Notes workflow.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span class="card-link">View Landing Page</span>
+            </div>
+          </a>
+
+          <a class="app-card" href="https://sigfoundry.github.io/bit11/" aria-label="Open bit11 landing page">
+            <div class="card-head">
+              <img
+                class="app-icon"
+                src="https://sigfoundry.github.io/bit11/assets/bit11-icon.png"
+                alt="bit11 icon"
+              />
+              <div class="app-meta">
+                <span>macOS</span>
+                <span>•</span>
+                <span>ZIP Authoring</span>
+              </div>
+              <h3>bit11</h3>
+              <p>
+                A ZIP authoring utility that lets you build archive structure visually and export with compatibility in mind.
+              </p>
+            </div>
+            <div class="card-foot">
+              <span class="card-link">View Landing Page</span>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>SigFoundry © COPYRIGHT 2018- ALL RIGHTS RESERVED.</span>
+        <a href="https://github.com/SigFoundry">github.com/SigFoundry</a>
+      </div>
+    </footer>
+  </body>
+</html>
